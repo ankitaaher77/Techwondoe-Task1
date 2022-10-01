@@ -1,0 +1,145 @@
+info:
+  _postman_id: 1e84308b-0232-4e70-aed0-ab632deada9a
+  name: Gorest API
+  schema: https://schema.getpostman.com/json/collection/v2.1.0/collection.json
+item:
+  - name: Get User Details
+    event:
+      - listen: test
+        script:
+          exec:
+            - tests["Status code"] = responseCode.code==200;
+            - >-
+              tests["Validate Response Body"] = responseBody.has("Advaya Chopra
+              II");
+            - ''
+            - ''
+          type: text/javascript
+    request:
+      method: GET
+      header: []
+      url:
+        raw: '{{url}}/users/4420'
+        host:
+          - '{{url}}'
+        path:
+          - users
+          - '4420'
+    response: []
+  - name: Post Create User
+    event:
+      - listen: test
+        script:
+          exec:
+            - tests["Status code"] = responseCode.code==201;
+            - tests["Validate Response Body"] = responseBody.has("ankita");
+            - ''
+            - ''
+          type: text/javascript
+    request:
+      auth:
+        type: bearer
+        bearer:
+          - key: token
+            value: a245aff1a147790dac11e3c93c450350a952cf65e7631ae6a61a917d0b6e24d3
+            type: string
+      method: POST
+      header: []
+      body:
+        mode: raw
+        raw: |-
+          {
+              "id": 5001,
+              "name": "ankita2 test",
+              "email": "ankita2@test.com",
+              "gender": "female",
+              "status": "active"
+          }
+        options:
+          raw:
+            language: json
+      url:
+        raw: '{{url}}/users'
+        host:
+          - '{{url}}'
+        path:
+          - users
+    response: []
+  - name: PUT update user details
+    event:
+      - listen: test
+        script:
+          exec:
+            - tests["Status code"] = responseCode.code==200;
+            - tests["Validate Response Body"] = responseBody.has("ankita");
+            - ''
+            - ''
+          type: text/javascript
+    request:
+      auth:
+        type: bearer
+        bearer:
+          - key: token
+            value: a245aff1a147790dac11e3c93c450350a952cf65e7631ae6a61a917d0b6e24d3
+            type: string
+      method: PUT
+      header: []
+      body:
+        mode: raw
+        raw: |-
+          {
+              "email": "ankita2@test1.com"
+              
+          }
+        options:
+          raw:
+            language: json
+      url:
+        raw: '{{url}}/users/4420'
+        host:
+          - '{{url}}'
+        path:
+          - users
+          - '4420'
+    response: []
+  - name: Delete User details
+    event:
+      - listen: test
+        script:
+          exec:
+            - tests["Status code"] = responseCode.code==200;
+            - tests["Validate Response Body"] = responseBody.has("ankita");
+            - ''
+            - ''
+          type: text/javascript
+    request:
+      auth:
+        type: bearer
+        bearer:
+          - key: token
+            value: a245aff1a147790dac11e3c93c450350a952cf65e7631ae6a61a917d0b6e24d3
+            type: string
+      method: DELETE
+      header: []
+      url:
+        raw: '{{url}}users'
+        host:
+          - '{{url}}users'
+    response: []
+auth:
+  type: bearer
+  bearer:
+    - key: token
+      value: a245aff1a147790dac11e3c93c450350a952cf65e7631ae6a61a917d0b6e24d3
+      type: string
+event:
+  - listen: prerequest
+    script:
+      type: text/javascript
+      exec:
+        - ''
+  - listen: test
+    script:
+      type: text/javascript
+      exec:
+        - ''
